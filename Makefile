@@ -3,7 +3,7 @@ all: package
 
 FUNCTION_NAME?=lambda-curator
 IAM_ROLE?=arn:aws:iam::XXX:AAA/BBB/CCC
-AWS_REGION?=eu-central-1
+AWS_REGION?=us-west-2
 
 virtualenv: requirements.txt
 	virtualenv .venv
@@ -20,13 +20,14 @@ awspush: package
 	aws lambda create-function \
 	--region $(AWS_REGION) \
 	--function-name $(FUNCTION_NAME) \
-	--zip-file fileb://$< \
+	--zip-file fileb://$(FUNCTION_NAME).zip \
 	--role $(IAM_ROLE) \
 	--handler bootstrap.lambda_handler \
 	--runtime python2.7
+
 
 awsupdate: package
 	aws lambda update-function-code \
 	--region $(AWS_REGION) \
 	--function-name $(FUNCTION_NAME) \
-	--zip-file fileb://$< \
+	--zip-file fileb://$(FUNCTION_NAME).zip \

@@ -3,9 +3,9 @@
 # not a Python "NoneType"
 client:
   hosts:
-    - ${ES_HOST:http://localhost}
+    - ${ES_HOST}
   port: ${ES_PORT:9200}
-  aws_region: ${AWS_REGION:eu-central-1}
+  aws_region: ${AWS_REGION:us-west-2}
   aws_sign_request: True
 
 logging:
