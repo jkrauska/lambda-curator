@@ -1,8 +1,10 @@
 # lambda-curator - An Elasticsearch Curator bootstrapper for AWS Lambda.
 
-This is a simple bootstrapper for running the [Elasticsearch Curator](https://github.com/elastic/curator) as an _AWS Lambda_-function. Lambda functions can be triggered using _CloudWatch Events_ making it a suitable environment for running Curator tasks. 
+This is a simple bootstrapper for running the [Elasticsearch Curator](https://github.com/elastic/curator) as an _AWS Lambda_-function.
+Lambda functions can be triggered using _CloudWatch Events_ making it a suitable environment for running Curator tasks.
 
-__Note__: Currently Lambda functions have a maximum execution time of 300 seconds so long-running Curator tasks are not suitable for running as Lambda functions.
+__Operational Notes__: Increase the default execution time if your curator tasks take more than 3s.
+The maximum execution time of 300 seconds so long-running Curator tasks are not suitable for running as Lambda functions.
 
 ## Setup
 ### Environment variables
@@ -20,7 +22,7 @@ The [AWS CLI](https://aws.amazon.com/cli/) needs to be installed in order to pus
 
 
 ## Add actions.yml
-Add an actions.yml file with the actions to be triggered by the lambda function.
+Add an actions.yml file with the actual actions to be triggered by the lambda function.
 
 ## Package function
 ```
@@ -41,4 +43,4 @@ make awsupdate
 This will update any existing lambda-curator function.
 
 ## Connecting to an AWS Elasticsearch cluster
-The lambda-curator function will sign all requests with the AWS credentials of the execution role (IAM_ROLE). Giving this role access to your AWS Elasticsearch cluster using IAM will authenticate all lambda-curator actions _automagically_.
+The lambda-curator function will sign all requests with the AWS credentials of the execution role (IAM_ROLE). Giving this role access to your AWS Elasticsearch cluster using IAM will authenticate all lambda-curator actions _automagically_. (Modify the es access policy to add Allow access from an IAM role)
